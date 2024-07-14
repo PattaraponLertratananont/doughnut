@@ -15,6 +15,7 @@
     <table class="question-table mt-2">
       <thead>
         <tr>
+          <th>Action</th>
           <th>Approved</th>
           <th>Question Text</th>
           <th>A</th>
@@ -28,6 +29,19 @@
           v-for="(question, outerIndex) in questions"
           :key="question.quizQuestion.multipleChoicesQuestion.stem"
         >
+          <td>
+            <PopButton btn-class="btn btn-primary" title="Edit">
+              <!-- prettier-ignore -->
+              <template #default="{ closer }">
+                <NoteAddQuestion
+                  v-bind="{ note, question }"
+                  @close-dialog="
+                    closer($event);
+                  "
+                />
+              </template>
+            </PopButton>
+          </td>
           <td>
             <input
               :id="'checkbox-' + outerIndex"
@@ -58,40 +72,40 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, onMounted, ref } from "vue"
-import { Note, QuizQuestionAndAnswer } from "@/generated/backend"
-import useLoadingApi from "@/managedApi/useLoadingApi"
-import NoteAddQuestion from "./NoteAddQuestion.vue"
-import PopButton from "../commons/Popups/PopButton.vue"
+import { PropType, onMounted, ref } from "vue";
+import { Note, QuizQuestionAndAnswer } from "@/generated/backend";
+import useLoadingApi from "@/managedApi/useLoadingApi";
+import NoteAddQuestion from "./NoteAddQuestion.vue";
+import PopButton from "../commons/Popups/PopButton.vue";
 
-const { managedApi } = useLoadingApi()
+const { managedApi } = useLoadingApi();
 const props = defineProps({
   note: {
     type: Object as PropType<Note>,
     required: true,
   },
-})
-const questions = ref<QuizQuestionAndAnswer[]>([])
+});
+const questions = ref<QuizQuestionAndAnswer[]>([]);
 const fetchQuestions = async () => {
   questions.value =
     await managedApi.restQuizQuestionController.getAllQuestionByNote(
       props.note.id
-    )
-}
+    );
+};
 const questionAdded = (newQuestion: QuizQuestionAndAnswer) => {
   if (newQuestion == null) {
-    return
+    return;
   }
-  questions.value.push(newQuestion)
-}
+  questions.value.push(newQuestion);
+};
 const toggleApproval = async (questionId?: number) => {
   if (questionId) {
-    await managedApi.restQuizQuestionController.toggleApproval(questionId)
+    await managedApi.restQuizQuestionController.toggleApproval(questionId);
   }
-}
+};
 onMounted(() => {
-  fetchQuestions()
-})
+  fetchQuestions();
+});
 </script>
 
 <style scoped>
