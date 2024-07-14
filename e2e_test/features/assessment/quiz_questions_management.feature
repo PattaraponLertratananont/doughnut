@@ -8,6 +8,14 @@ Feature: Quiz Question Management
     And there are questions for the note:
       | Note Topic   | Question             | Answer | One Wrong Choice |
       | The cow joke | What does a cow say? | moo    | woo              |
+  
+  Scenario: Can edit quiz question
+    When I edit the question in the note "The cow joke":
+      | Stem                            | Choice 0     | Choice 1       | Correct Choice Index |
+      | What does a cow say?  | moo            | woo2           | 0                              |
+    Then the question in form after edit becomes in the note "The cow joke":
+      | Question                          | B       | Correct Choice |
+      | What does a cow say?     | woo2  | moo                  |
 
   Scenario: Manually add a question to the note successfully
     When I add the following question for the note "The cow joke":

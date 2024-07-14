@@ -14,7 +14,7 @@ interface BodyMatch {
 }
 
 const openAiService = () => {
-  const serviceMocker = new ServiceMocker('openAi', 5001)
+  const serviceMocker = new ServiceMocker('openAi', 6002)
   return {
     mock() {
       testability().mockService(serviceMocker)

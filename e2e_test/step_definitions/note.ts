@@ -527,3 +527,24 @@ Then('the question in the form becomes:', (data: DataTable) => {
     }
   )
 })
+
+When(
+  'I edit the question in the note {string}:',
+  (noteName: string, data: DataTable) => {
+    expect(data.hashes().length, 'please add one question at a time.').to.equal(
+      1
+    )
+    start
+      .jumpToNotePage(noteName)
+      .openQuestionList()
+      .editQuestionPage()
+      .editQuestion(data.hashes()[0]!)
+  }
+)
+
+Then(
+  'the question in form after edit becomes in the note {string}:',
+  (noteTopic: string, data: DataTable) => {
+    start.jumpToNotePage(noteTopic).expectQuestionsInList(data.hashes())
+  }
+)

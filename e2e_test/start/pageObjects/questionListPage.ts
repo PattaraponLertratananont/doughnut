@@ -1,4 +1,4 @@
-import { addQuestionPage } from './addQuestionPage'
+import { addQuestionPage, editQuestionPage } from './addQuestionPage'
 
 export const questionListPage = () => {
   return {
@@ -11,5 +11,6 @@ export const questionListPage = () => {
         })
       })
     },
+    editQuestionPage,
   }
 }
