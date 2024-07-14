@@ -25,10 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(question, outerIndex) in questions"
-          :key="question.quizQuestion.multipleChoicesQuestion.stem"
-        >
+        <tr v-for="(question, outerIndex) in questions" :key="question.id">
           <td>
             <PopButton btn-class="btn btn-primary" title="Edit">
               <!-- prettier-ignore -->
