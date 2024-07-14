@@ -55,7 +55,7 @@
               v-for="(choice, index) in question.quizQuestion
                 .multipleChoicesQuestion.choices"
               :class="{
-                'correct-choice': index === question.correctAnswerIndex,
+                'correct-choice': index === Number(question.correctAnswerIndex),
               }"
               :key="index"
             >
